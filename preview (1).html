@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Đề Thi Giải Tích - Vi phân, Đạo hàm, Tích phân</title>
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(','\\)'], ['$', '$']]
+      }
+    };
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      background:#f4f7fb;
+      margin:0;
+      padding:20px;
+      color:#222;
+    }
+
+    .container{
+      max-width:1100px;
+      margin:auto;
+      background:white;
+      padding:30px;
+      border-radius:18px;
+      box-shadow:0 0 18px rgba(0,0,0,0.1);
+    }
+
+    h1{
+      text-align:center;
+      color:#004a99;
+    }
+
+    h2{
+      margin-top:40px;
+      color:#c2185b;
+      border-left:6px solid #c2185b;
+      padding-left:10px;
+    }
+
+    .question{
+      margin-top:30px;
+      padding:20px;
+      border-radius:12px;
+      background:#f9fbff;
+      border:1px solid #dce7ff;
+    }
+
+    .question p{
+      font-size:18px;
+      font-weight:bold;
+    }
+
+    .option{
+      display:block;
+      margin:10px 0;
+      padding:12px;
+      border-radius:10px;
+      border:2px solid #d0d0d0;
+      cursor:pointer;
+      transition:0.25s;
+      background:white;
+    }
+
+    .option:hover{
+      background:#eef5ff;
+    }
+
+    .correct{
+      background:#c8f7c5 !important;
+      border-color:green !important;
+      color:#0d5c0d;
+      font-weight:bold;
+    }
+
+    .wrong{
+      background:#ffd4d4 !important;
+      border-color:red !important;
+      color:#8b0000;
+      font-weight:bold;
+    }
+
+    .explanation{
+      margin-top:15px;
+      padding:15px;
+      border-left:5px solid #2196f3;
+      background:#eef7ff;
+      display:none;
+      border-radius:10px;
+    }
+
+    .tip{
+      margin-top:10px;
+      color:#7b1fa2;
+      font-weight:bold;
+    }
+
+    .score-box{
+      text-align:center;
+      margin-top:40px;
+    }
+
+    button{
+      padding:14px 22px;
+      border:none;
+      border-radius:10px;
+      background:#0059b3;
+      color:white;
+      font-size:16px;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    button:hover{
+      background:#003d80;
+    }
+
+    #score{
+      margin-top:20px;
+      font-size:24px;
+      color:#004a99;
+      font-weight:bold;
+    }
+
+    .download-box{
+      text-align:center;
+      margin-bottom:25px;
+    }
+
+    .difficulty{
+      font-size:14px;
+      color:white;
+      padding:5px 10px;
+      border-radius:8px;
+      margin-left:10px;
+    }
+
+    .easy{
+      background:green;
+    }
+
+    .medium{
+      background:orange;
+    }
+
+    .hard{
+      background:red;
+    }
+
+    .theory{
+      background:#673ab7;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <h1>ĐỀ THI TRẮC NGHIỆM GIẢI TÍCH</h1>
+
+  <div class="download-box">
+    <button onclick="downloadHTML()">📥 Download File HTML</button>
+  </div>
+
+  <div id="quiz"></div>
+
+  <div class="score-box">
+    <button onclick="showScore()">Xem Điểm</button>
+    <div id="score"></div>
+  </div>
+
+</div>
+
+<script>
+
+const questions = [
+
+/* ==========================
+   5 CÂU LÝ THUYẾT
+========================== */
+
+{
+type:"Lý thuyết",
+difficulty:"theory",
+question:"Vi phân \\(dx\\) biểu diễn điều gì?",
+options:[
+"Sự thay đổi vô hạn bé",
+"Giới hạn của hàm số",
+"Diện tích hình học",
+"Tốc độ trung bình"
+],
+answer:0,
+explanation:"Theo bài giảng, vi phân là sự thay đổi vô hạn bé của đại lượng.",
+tip:"Nhớ: chữ d trong dx = differential = thay đổi nhỏ."
+},
+
+{
+type:"Lý thuyết",
+difficulty:"theory",
+question:"Đạo hàm được định nghĩa bởi công thức nào?",
+options:[
+"\\(f'(x)=\\frac{df}{dx}\\)",
+"\\(f'(x)=f(x)+C\\)",
+"\\(f'(x)=\\int f(x)dx\\)",
+"\\(f'(x)=\\frac{x}{f(x)}\\)"
+],
+answer:0,
+explanation:"Đạo hàm là tỉ lệ giữa vi phân của hàm và vi phân của biến.",
+tip:"Nhìn thấy df/dx ⇒ nghĩ ngay đến đạo hàm."
+},
+
+{
+type:"Lý thuyết",
+difficulty:"theory",
+question:"Tích phân xác định biểu diễn ý nghĩa nào?",
+options:[
+"Phép cộng liên tục",
+"Phép chia liên tục",
+"Giới hạn vô cực",
+"Tỉ lệ biến thiên"
+],
+answer:0,
+explanation:"Tích phân xác định là phép cộng liên tục các đại lượng vô hạn bé.",
+tip:"Ký hiệu ∫ xuất phát từ chữ Sum."
+},
+
+{
+type:"Lý thuyết",
+difficulty:"theory",
+question:"Nếu \\(F'(x)=f(x)\\) thì \\(F(x)\\) gọi là gì?",
+options:[
+"Nguyên hàm",
+"Đạo hàm",
+"Vi phân",
+"Giới hạn"
+],
+answer:0,
+explanation:"F(x) là nguyên hàm của f(x).",
+tip:"Đạo hàm đi xuôi, nguyên hàm đi ngược."
+},
+
+{
+type:"Lý thuyết",
+difficulty:"theory",
+question:"Định lý cơ bản của giải tích là:",
+options:[
+"\\(\\int_a^b f(x)dx=F(b)-F(a)\\)",
+"\\(F'(x)=x^2\\)",
+"\\(dx=f(x)\\)",
+"\\(\\int f(x)=0\\)"
+],
+answer:0,
+explanation:"Đây là công thức liên kết nguyên hàm và tích phân.",
+tip:"Cận trên trừ cận dưới."
+},
+
+/* ==========================
+   5 CÂU DỄ
+========================== */
+
+{
+type:"Dễ",
+difficulty:"easy",
+question:"Tính \\(\\int_1^5 dx\\)",
+options:[
+"4",
+"5",
+"6",
+"1"
+],
+answer:0,
+explanation:"\\(\\int_1^5 dx = 5-1 =4\\)",
+tip:"∫dx từ a đến b = b-a."
+},
+
+{
+type:"Dễ",
+difficulty:"easy",
+question:"Đạo hàm của \\(x^2\\) là:",
+options:[
+"\\(2x\\)",
+"\\(x\\)",
+"\\(x^3\\)",
+"\\(2\\)"
+],
+answer:0,
+explanation:"Dùng quy tắc đạo hàm lũy thừa.",
+tip:"Hạ số mũ xuống trước."
+},
+
+{
+type:"Dễ",
+difficulty:"easy",
+question:"\\(\\int 2x dx = ?\\)",
+options:[
+"\\(x^2+C\\)",
+"\\(2x+C\\)",
+"\\(x+C\\)",
+"\\(x^3+C\\)"
+],
+answer:0,
+explanation:"Nguyên hàm của 2x là x² + C.",
+tip:"Nguyên hàm làm tăng số mũ."
+},
+
+{
+type:"Dễ",
+difficulty:"easy",
+question:"Đạo hàm của hằng số 7 bằng:",
+options:[
+"0",
+"1",
+"7",
+"Không xác định"
+],
+answer:0,
+explanation:"Hằng số không thay đổi nên đạo hàm bằng 0.",
+tip:"Constant ⇒ derivative = 0."
+},
+
+{
+type:"Dễ",
+difficulty:"easy",
+question:"\\(\\int 3dx = ?\\)",
+options:[
+"\\(3x+C\\)",
+"\\(x^3+C\\)",
+"\\(3+C\\)",
+"\\(0\\)"
+],
+answer:0,
+explanation:"Nguyên hàm của hằng số a là ax+C.",
+tip:"Thêm x vào sau số."
+},
+
+/* ==========================
+   5 CÂU TRUNG BÌNH
+========================== */
+
+{
+type:"Trung bình",
+difficulty:"medium",
+question:"Tính đạo hàm của \\(f(x)=3x^2+2x\\)",
+options:[
+"\\(6x+2\\)",
+"\\(3x+2\\)",
+"\\(6x\\)",
+"\\(2x+2\\)"
+],
+answer:0,
+explanation:"Đạo hàm từng hạng tử: 3x² → 6x ; 2x → 2.",
+tip:"Đạo hàm từng phần riêng."
+},
+
+{
+type:"Trung bình",
+difficulty:"medium",
+question:"Tính \\(\\int_0^2 2x dx\\)",
+options:[
+"4",
+"2",
+"6",
+"8"
+],
+answer:0,
+explanation:"Nguyên hàm là x². Thay cận: 2²−0²=4.",
+tip:"Tìm nguyên hàm trước rồi thay cận."
+},
+
+{
+type:"Trung bình",
+difficulty:"medium",
+question:"Đạo hàm của \\(5x^3\\) là:",
+options:[
+"\\(15x^2\\)",
+"\\(5x^2\\)",
+"\\(10x\\)",
+"\\(15x\\)"
+],
+answer:0,
+explanation:"Hạ số mũ 3 xuống: 5×3=15.",
+tip:"a·xⁿ → a·n·xⁿ⁻¹"
+},
+
+{
+type:"Trung bình",
+difficulty:"medium",
+question:"\\(\\int x^2 dx = ?\\)",
+options:[
+"\\(\\frac{x^3}{3}+C\\)",
+"\\(2x+C\\)",
+"\\(x+C\\)",
+"\\(3x^2+C\\)"
+],
+answer:0,
+explanation:"Tăng số mũ lên 1 rồi chia cho số mũ mới.",
+tip:"Nguyên hàm: cộng 1 số mũ."
+},
+
+{
+type:"Trung bình",
+difficulty:"medium",
+question:"Giá trị của \\(\\int_2^2 f(x)dx\\) luôn bằng:",
+options:[
+"0",
+"1",
+"f(2)",
+"Không xác định"
+],
+answer:0,
+explanation:"Hai cận bằng nhau nên diện tích bằng 0.",
+tip:"Cùng cận ⇒ tích phân = 0."
+},
+
+/* ==========================
+   5 CÂU KHÓ
+========================== */
+
+{
+type:"Khó",
+difficulty:"hard",
+question:"Nếu \\(F'(x)=2x+1\\) thì một nguyên hàm của \\(2x+1\\) là:",
+options:[
+"\\(x^2+x+C\\)",
+"\\(2x^2+C\\)",
+"\\(x^2+1\\)",
+"\\(2x+1\\)"
+],
+answer:0,
+explanation:"Nguyên hàm của 2x là x² và của 1 là x.",
+tip:"Tách từng phần ra tích phân."
+},
+
+{
+type:"Khó",
+difficulty:"hard",
+question:"Tính \\(\\int_1^3 (2x+1)dx\\)",
+options:[
+"10",
+"8",
+"6",
+"12"
+],
+answer:0,
+explanation:"Nguyên hàm: x²+x. Thay cận: (9+3)-(1+1)=10.",
+tip:"Viết nguyên hàm gọn rồi thay cận."
+},
+
+{
+type:"Khó",
+difficulty:"hard",
+question:"Đạo hàm của \\(f(x)=\\frac{1}{2}x^4\\) là:",
+options:[
+"\\(2x^3\\)",
+"\\(x^3\\)",
+"\\(4x^3\\)",
+"\\(2x^4\\)"
+],
+answer:0,
+explanation:"1/2 ×4 =2 nên kết quả là 2x³.",
+tip:"Nhân hệ số với số mũ."
+},
+
+{
+type:"Khó",
+difficulty:"hard",
+question:"Tính \\(\\int (4x^3+2x)dx\\)",
+options:[
+"\\(x^4+x^2+C\\)",
+"\\(4x^4+2x^2+C\\)",
+"\\(x^4+2x+C\\)",
+"\\(2x^4+x+C\\)"
+],
+answer:0,
+explanation:"Nguyên hàm từng phần: 4x³→x⁴ ; 2x→x².",
+tip:"Nguyên hàm đa thức làm từng hạng."
+},
+
+{
+type:"Khó",
+difficulty:"hard",
+question:"Theo định lý cơ bản giải tích, nếu \\(F'(x)=f(x)\\) thì:",
+options:[
+"\\(\\int_a^b f(x)dx=F(b)-F(a)\\)",
+"\\(\\int_a^b f(x)dx=f(b)-f(a)\\)",
+"\\(\\int_a^b f(x)dx=0\\)",
+"\\(\\int_a^b f(x)dx=F(a)-F(b)\\)"
+],
+answer:0,
+explanation:"Định lý cơ bản của giải tích liên kết tích phân với nguyên hàm.",
+tip:"Cận trên trừ cận dưới."
+}
+
+];
+
+const quizDiv = document.getElementById("quiz");
+
+let score = 0;
+let answered = 0;
+
+questions.forEach((q,index)=>{
+
+  const qDiv = document.createElement("div");
+  qDiv.className = "question";
+
+  qDiv.innerHTML = `
+    <p>
+      Câu ${index+1}: ${q.question}
+      <span class="difficulty ${q.difficulty}">
+        ${q.type}
+      </span>
+    </p>
+  `;
+
+  q.options.forEach((opt,i)=>{
+
+    const btn = document.createElement("div");
+    btn.className = "option";
+    btn.innerHTML = `${String.fromCharCode(65+i)}. ${opt}`;
+
+    btn.onclick = function(){
+
+      if(qDiv.classList.contains("answered")) return;
+
+      qDiv.classList.add("answered");
+
+      const options = qDiv.querySelectorAll(".option");
+
+      options.forEach(o=>o.style.pointerEvents="none");
+
+      if(i===q.answer){
+        btn.classList.add("correct");
+        score++;
+      }else{
+        btn.classList.add("wrong");
+        options[q.answer].classList.add("correct");
+      }
+
+      answered++;
+
+      exp.style.display="block";
+
+      MathJax.typesetPromise();
+    };
+
+    qDiv.appendChild(btn);
+
+  });
+
+  const exp = document.createElement("div");
+  exp.className="explanation";
+  exp.innerHTML=`
+    <b>Đáp án đúng:</b> ${String.fromCharCode(65+q.answer)}<br><br>
+    <b>Giải thích:</b> ${q.explanation}
+    <div class="tip">
+      💡 Mẹo nhanh: ${q.tip}
+    </div>
+  `;
+
+  qDiv.appendChild(exp);
+
+  quizDiv.appendChild(qDiv);
+
+});
+
+function showScore(){
+
+  document.getElementById("score").innerHTML=
+  `Bạn đúng ${score}/${questions.length} câu`;
+
+}
+
+function downloadHTML(){
+
+  const htmlContent = document.documentElement.outerHTML;
+
+  const blob = new Blob([htmlContent], {type:"text/html"});
+
+  const a = document.createElement("a");
+
+  a.href = URL.createObjectURL(blob);
+
+  a.download = "de-thi-giai-tich.html";
+
+  a.click();
+
+}
+
+</script>
+
+</body>
+</html>
